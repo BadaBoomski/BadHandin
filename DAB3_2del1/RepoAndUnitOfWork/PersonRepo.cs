@@ -14,6 +14,7 @@ namespace DAB3_2del1.RepoAndUnitOfWork
 
         public PersonRepo(PersonDBContext context) : base(context)
         {
+            this.context = context;
         }
 
         public Person GetPersonWithEmailID(int id)
