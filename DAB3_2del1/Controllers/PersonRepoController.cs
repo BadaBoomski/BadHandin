@@ -48,7 +48,8 @@ namespace DAB3_2del1.Controllers
                 return BadRequest(ModelState);
             }
 
-            var person = personRepo.GetByID(id);
+            //var person = personRepo.GetByID(id);
+            var person = unitOfWork.Persons.GetByID(id);
 
             if (person == null)
             {
