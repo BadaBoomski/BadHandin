@@ -17,9 +17,6 @@ namespace DAB3_2del1.Controllers
     [ApiController]
     public class PersonRepoController : ControllerBase
     {
-        //private readonly PersonDBContext _context;
-
-        //private UnitOfWork unitOfWork;
 
         private IUnitOfWork unitOfWork;
 
@@ -27,7 +24,11 @@ namespace DAB3_2del1.Controllers
 
         public PersonRepoController(IUnitOfWork unitOfWork) 
         {
+            // Using Repository
             //this.personRepo = personRepo;
+
+
+            // Using Unit of Work
             this.unitOfWork = unitOfWork;
         }
 
@@ -35,11 +36,7 @@ namespace DAB3_2del1.Controllers
         [HttpGet]
         public IEnumerable<Person> GetPersons()
         {
-
-            //var persons = from s in personRepo.GetAll()
-            //    select s;
-
-            return personRepo.GetAll();
+            return unitOfWork.Persons.GetAll();
         }
 
         // GET: api/PersonRepo/5
@@ -52,7 +49,6 @@ namespace DAB3_2del1.Controllers
             }
 
             var person = personRepo.GetByID(id);
-            //var person = await _context.Persons.FindAsync(id);
 
             if (person == null)
             {
@@ -79,7 +75,6 @@ namespace DAB3_2del1.Controllers
 
             // Using Unit of Work.
             unitOfWork.Persons.UpdatePerson(person);
-            //var person = unitOfWork.UpdatePerson(person);
             unitOfWork.Complete();
 
             // Using Repository.
@@ -98,8 +93,13 @@ namespace DAB3_2del1.Controllers
                 return BadRequest(ModelState);
             }
 
-            personRepo.InsertPerson(person);
-            personRepo.Save();
+            // Using Unit of Work
+            unitOfWork.Persons.InsertPerson(person);
+            unitOfWork.Complete();
+
+            // Using Repository
+            //personRepo.InsertPerson(person);
+            //personRepo.Save();
 
             return CreatedAtAction("GetPerson", new { id = person.PersonID }, person);
         }
@@ -113,26 +113,23 @@ namespace DAB3_2del1.Controllers
                 return BadRequest(ModelState);
             }
 
-            var person = personRepo.GetByID(id);
+            //var person = personRepo.GetByID(id);
+            var person = unitOfWork.Persons.GetByID(id);
 
-            //var person = await _context.Persons.FindAsync(id);
             if (person == null)
             {
                 return NotFound();
             }
 
-            personRepo.RemovePerson(id);
-            personRepo.Save();
-
-            //_context.Persons.Remove(person);
-            //await _context.SaveChangesAsync();
+            // Using Unit of Work
+            unitOfWork.Persons.RemovePerson(id);
+            unitOfWork.Complete();
+            
+            // Using Repository
+            //personRepo.RemovePerson(id);
+            //personRepo.Save();
 
             return Ok(person);
         }
-
-        //private bool PersonExists(int id)
-        //{
-        //    return _context.Persons.Any(e => e.PersonID == id);
-        //}
     }
 }
