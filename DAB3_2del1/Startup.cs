@@ -39,6 +39,7 @@ namespace DAB3_2del1
                 options.UseSqlServer(Configuration.GetConnectionString("PersonDBString")));
 
             services.AddTransient<IPersonRepo, PersonRepo>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             // mangler singleton!! Add singleton.. Jesper Tørresø used Singleton, but a student recommended AddTransient.
 

@@ -8,6 +8,7 @@ namespace DAB3_2del1.Models
 {
     public class PersonDBContext : DbContext
     {
+        public PersonDBContext() { }
         public PersonDBContext(DbContextOptions<PersonDBContext> options) 
             : base(options) { }
 

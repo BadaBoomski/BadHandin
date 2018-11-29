@@ -11,14 +11,6 @@ using DAB3_2del1.RepoAndUnitOfWork;
 using Remotion.Linq.Clauses;
 
 
-/// <summary>
-/// WHAT HAVE WE DONE? Changed ctor and methods so they now follow the guidelines from Microsoft
-/// source: https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
-/// This has forced us to change PersonRepo.cs + IPersonRepo.cs in order to make it work.
-/// We have also outcommented the previous code, just for safety and for the group to see, what have been changed.
-/// </summary>
-
-
 namespace DAB3_2del1.Controllers
 {
     [Route("api/[controller]")]
@@ -27,19 +19,17 @@ namespace DAB3_2del1.Controllers
     {
         //private readonly PersonDBContext _context;
 
-        private IUnitOfWork _data;
+        //private UnitOfWork unitOfWork;
+
+        private IUnitOfWork unitOfWork;
 
         private IPersonRepo personRepo;
 
-        public PersonRepoController(IPersonRepo personRepo)
+        public PersonRepoController(IUnitOfWork unitOfWork) 
         {
-            this.personRepo = personRepo;
+            //this.personRepo = personRepo;
+            this.unitOfWork = unitOfWork;
         }
-
-        //public PersonRepoController(PersonDBContext context)
-        //{
-        //    //_context = context;
-        //}
 
         // GET: api/PersonRepo
         [HttpGet]
@@ -74,7 +64,7 @@ namespace DAB3_2del1.Controllers
 
         // PUT: api/PersonRepo/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerson([FromRoute] int id, [FromBody] Person person)
+        public IActionResult PutPerson([FromRoute] int id, [FromBody] Person person)
         {
             if (!ModelState.IsValid)
             {
@@ -88,32 +78,15 @@ namespace DAB3_2del1.Controllers
 
 
             // Using Unit of Work.
-            _data.Persons.UpdatePerson(person);
-            _data.Persons.Save();
+            unitOfWork.Persons.UpdatePerson(person);
+            //var person = unitOfWork.UpdatePerson(person);
+            unitOfWork.Complete();
 
             // Using Repository.
             //personRepo.UpdatePerson(person);
             //personRepo.Save();
 
-            //_context.Entry(person).State = EntityState.Modified;
-
-            //try
-            //{
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (DbUpdateConcurrencyException)
-            //{
-            //    if (!PersonExists(id))
-            //    {
-            //        return NotFound();
-            //    }
-            //    else
-            //    {
-            //        throw;
-            //    }
-            //}
-
-            return NoContent();
+           return Ok(person);
         }
 
         // POST: api/PersonRepo
@@ -127,9 +100,6 @@ namespace DAB3_2del1.Controllers
 
             personRepo.InsertPerson(person);
             personRepo.Save();
-
-            //_context.Persons.Add(person);
-            //await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetPerson", new { id = person.PersonID }, person);
         }

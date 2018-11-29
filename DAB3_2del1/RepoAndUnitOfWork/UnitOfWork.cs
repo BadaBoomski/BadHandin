@@ -9,7 +9,7 @@ namespace DAB3_2del1.RepoAndUnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly PersonDBContext Context;
+        private PersonDBContext Context;
 
         public UnitOfWork(PersonDBContext context)
         {
