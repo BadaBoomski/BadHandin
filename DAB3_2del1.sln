@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAB3_2del1", "DAB3_2del1\DAB3_2del1.csproj", "{4D4AC874-01B3-4ED8-8F88-468D515E4DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAB3_2del1", "DAB3_2del1\DAB3_2del1.csproj", "{4D4AC874-01B3-4ED8-8F88-468D515E4DEE}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Dab3Handindel1", "..\Dab3Handindel1\Dab3Handindel1.sqlproj", "{0E27F954-DD52-45AE-B68B-CA988B8C4064}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,12 @@ Global
 		{4D4AC874-01B3-4ED8-8F88-468D515E4DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D4AC874-01B3-4ED8-8F88-468D515E4DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D4AC874-01B3-4ED8-8F88-468D515E4DEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E27F954-DD52-45AE-B68B-CA988B8C4064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E27F954-DD52-45AE-B68B-CA988B8C4064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E27F954-DD52-45AE-B68B-CA988B8C4064}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0E27F954-DD52-45AE-B68B-CA988B8C4064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E27F954-DD52-45AE-B68B-CA988B8C4064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E27F954-DD52-45AE-B68B-CA988B8C4064}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
